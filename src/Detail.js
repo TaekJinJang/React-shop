@@ -9,14 +9,16 @@ let 제목 = styled.div`
   font-size: 25px;
 `;
 function Detail(props) {
-  let [alert, alert변경] = useState(
-    <div className="my-alert">재고가 얼마 남지 않았습니다 !!</div>
-  );
+  let [alert, alert변경] = useState(true);
+  let [inputData, inputData변경] = useState("");
   useEffect(() => {
     setTimeout(() => {
-      alert변경("");
-    }, 1000);
-  });
+      let 특가 = alert변경(false);
+    }, 2000);
+    return () => {
+      clearTimeout(특가);
+    };
+  }, []);
 
   let history = useHistory();
   let { id } = useParams();
@@ -26,7 +28,15 @@ function Detail(props) {
   return (
     <div className="container text-center">
       <제목 className="red"> 상세 페이지 </제목>
-      {alert}
+      {inputData}
+      <input
+        onChange={(e) => {
+          inputData변경(e.target.value);
+        }}
+      />
+      {alert === true ? (
+        <div className="my-alert">재고가 얼마 남지 않았습니다 !!</div>
+      ) : null}
       <div className="row">
         <div className="col-md-6">
           <img
