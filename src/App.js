@@ -12,8 +12,12 @@ import {
   FormControl,
 } from "react-bootstrap";
 import shoesDate from "./data.js";
+import { Link, Route, Switch } from "react-router-dom";
+import Detail from "./Detail.js";
 
 function App() {
+  // 중요한 데이터는 꼭 여기다가 넣어야 함(최상위 컴포넌트)
+
   let [shoes, shoes변경] = useState(shoesDate);
   console.log(shoes);
   return (
@@ -28,8 +32,12 @@ function App() {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="#action1">Home</Nav.Link>
-              <Nav.Link href="#action2">Link</Nav.Link>
+              <Nav.Link>
+                <Link to="/">Home</Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link to="/detail">detail</Link>
+              </Nav.Link>
               <NavDropdown title="Link" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action4">
@@ -56,27 +64,42 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <div className="text-center jumbotron bg-image">
-        <h1>20% 세일</h1>
-        <p>
-          얼른끝내고 학교가서 할껍니다
-          ㅁㄴ옴냐ㅣ우뱆움니위ㅓ뮘누임ㄴ워미누디무니우민ㅇ
-        </p>
-        <p>
-          <Button variant="primary" className="btn-width">
-            강의들으러 가기
-          </Button>
-        </p>
-      </div>
-      <div className="container text-center">
-        <div className="row">
-          {shoes.map((item, i) => {
-            return (
-              <Card shoes변경={shoes변경} shoes={shoes[i]} i={i} key={i}></Card>
-            );
-          })}
-        </div>
-      </div>
+      <Switch>
+        <Route path="/detail/:id">
+          <Detail shoes={shoes} />
+        </Route>
+        <Route path="/:id">
+          <div>아이디 연습</div>
+        </Route>
+        <Route path="/">
+          <div className="text-center jumbotron bg-image">
+            <h1>20% 세일</h1>
+            <p>
+              얼른끝내고 학교가서 할껍니다
+              ㅁㄴ옴냐ㅣ우뱆움니위ㅓ뮘누임ㄴ워미누디무니우민ㅇ
+            </p>
+            <p>
+              <Button variant="primary" className="btn-width">
+                강의들으러 가기
+              </Button>
+            </p>
+          </div>
+          <div className="container text-center">
+            <div className="row">
+              {shoes.map((item, i) => {
+                return (
+                  <Card
+                    shoes변경={shoes변경}
+                    shoes={shoes[i]}
+                    i={i}
+                    key={i}
+                  ></Card>
+                );
+              })}
+            </div>
+          </div>
+        </Route>
+      </Switch>
     </div>
   );
 }
