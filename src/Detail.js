@@ -1,5 +1,13 @@
+/*eslint-disable*/
 import React, { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import styled from "styled-components";
+import "./Detail.scss";
+
+let 제목 = styled.div`
+  padding: 20px;
+  font-size: 25px;
+`;
 function Detail(props) {
   let history = useHistory();
   let { id } = useParams();
@@ -8,6 +16,8 @@ function Detail(props) {
   });
   return (
     <div className="container text-center">
+      <제목 className="red"> 상세 페이지 </제목>
+      <div className="my-alert">재고가 얼마 남지 않았습니다 !!</div>
       <div className="row">
         <div className="col-md-6">
           <img

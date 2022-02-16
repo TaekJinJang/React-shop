@@ -24,7 +24,7 @@ function App() {
     <div>
       <Navbar bg="light" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+          <Navbar.Brand href="#">Shoes Shop</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -36,7 +36,7 @@ function App() {
                 <Link to="/">Home</Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to="/detail">detail</Link>
+                <Link to="/detail/0">detail</Link>
               </Nav.Link>
               <NavDropdown title="Link" id="navbarScrollingDropdown">
                 <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
