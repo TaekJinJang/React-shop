@@ -1,3 +1,5 @@
+/*eslint-disable*/
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import {
@@ -9,8 +11,11 @@ import {
   Button,
   FormControl,
 } from "react-bootstrap";
+import shoesDate from "./data.js";
 
 function App() {
+  let [shoes, shoes변경] = useState(shoesDate);
+  console.log(shoes);
   return (
     <div>
       <Navbar bg="light" expand="lg">
@@ -65,32 +70,28 @@ function App() {
       </div>
       <div className="container text-center">
         <div className="row">
-          <div className="col-md-4">
-            <img
-              src="https://codingapple1.github.io/shop/shoes1.jpg"
-              width={"100%"}
-            ></img>
-            <h4>상품명</h4>
-            <p>상품설명 및 가격</p>
-          </div>
-          <div className="col-md-4">
-            <img
-              src="https://codingapple1.github.io/shop/shoes2.jpg"
-              width={"100%"}
-            ></img>
-            <h4>상품명</h4>
-            <p>상품설명 및 가격</p>
-          </div>
-          <div className="col-md-4">
-            <img
-              src="https://codingapple1.github.io/shop/shoes3.jpg"
-              width={"100%"}
-            ></img>
-            <h4>상품명</h4>
-            <p>상품설명 및 가격</p>
-          </div>
+          {shoes.map((item, i) => {
+            return (
+              <Card shoes변경={shoes변경} shoes={shoes[i]} i={i} key={i}></Card>
+            );
+          })}
         </div>
       </div>
+    </div>
+  );
+}
+function Card(props) {
+  return (
+    <div className="col-md-4">
+      <img
+        src={
+          "https://codingapple1.github.io/shop/shoes" + (props.i + 1) + ".jpg"
+        }
+        width={"100%"}
+      ></img>
+      <h4>{props.shoes.title}</h4>
+      <p>{props.shoes.content}</p>
+      <p>{props.shoes.price}</p>
     </div>
   );
 }
