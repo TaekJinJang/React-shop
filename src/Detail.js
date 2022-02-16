@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Detail.scss";
@@ -9,6 +9,15 @@ let 제목 = styled.div`
   font-size: 25px;
 `;
 function Detail(props) {
+  let [alert, alert변경] = useState(
+    <div className="my-alert">재고가 얼마 남지 않았습니다 !!</div>
+  );
+  useEffect(() => {
+    setTimeout(() => {
+      alert변경("");
+    }, 1000);
+  });
+
   let history = useHistory();
   let { id } = useParams();
   let 찾은상품 = props.shoes.find((상품) => {
@@ -17,7 +26,7 @@ function Detail(props) {
   return (
     <div className="container text-center">
       <제목 className="red"> 상세 페이지 </제목>
-      <div className="my-alert">재고가 얼마 남지 않았습니다 !!</div>
+      {alert}
       <div className="row">
         <div className="col-md-6">
           <img
