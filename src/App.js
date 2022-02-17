@@ -14,6 +14,7 @@ import {
 import shoesDate from "./data.js";
 import { Link, Route, Switch } from "react-router-dom";
 import Detail from "./Detail.js";
+import axios from "axios";
 
 function App() {
   // 중요한 데이터는 꼭 여기다가 넣어야 함(최상위 컴포넌트)
@@ -97,6 +98,23 @@ function App() {
                 );
               })}
             </div>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                axios
+                  .get("https://codingapple1.github.io/shop/data2.json")
+                  .then((data) => {
+                    console.log(data.data);
+                    // let array = [...shoes];
+                    // array.push(...data.data);
+                    // shoes변경(array);
+                    shoes변경([...shoes, ...data.data]);
+                  })
+                  .catch();
+              }}
+            >
+              더보기
+            </Button>{" "}
           </div>
         </Route>
       </Switch>
