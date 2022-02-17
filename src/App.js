@@ -20,6 +20,8 @@ function App() {
   // 중요한 데이터는 꼭 여기다가 넣어야 함(최상위 컴포넌트)
 
   let [shoes, shoes변경] = useState(shoesDate);
+  let [trueFalse, trueFalse변경] = useState(true);
+  let [num, num변경] = useState(1);
   console.log(shoes);
   return (
     <div>
@@ -101,16 +103,29 @@ function App() {
             <Button
               variant="secondary"
               onClick={() => {
+                trueFalse변경(!trueFalse);
+                trueFalse == true ? <Loding /> : null;
+                num변경 = num + 1;
+                console.log(
+                  "https://codingapple1.github.io/shop/data" + num + ".json"
+                );
                 axios
                   .get("https://codingapple1.github.io/shop/data2.json")
+                  // .get(
+                  //   "https://codingapple1.github.io/shop/data" + num + ".json"
+                  // )
+
                   .then((data) => {
                     console.log(data.data);
                     // let array = [...shoes];
                     // array.push(...data.data);
                     // shoes변경(array);
+
                     shoes변경([...shoes, ...data.data]);
                   })
-                  .catch();
+                  .catch(() => {
+                    <div>dd</div>;
+                  });
               }}
             >
               더보기
@@ -136,5 +151,7 @@ function Card(props) {
     </div>
   );
 }
-
+function Loding() {
+  return <div>로딩중입니다 ..</div>;
+}
 export default App;
