@@ -12,8 +12,9 @@ function Detail(props) {
   let [alert, alert변경] = useState(true);
   let [inputData, inputData변경] = useState("");
   useEffect(() => {
+    let 특가;
     setTimeout(() => {
-      let 특가 = alert변경(false);
+      특가 = alert변경(false);
     }, 2000);
     return () => {
       clearTimeout(특가);
@@ -52,7 +53,17 @@ function Detail(props) {
           <h4 className="pt-5">{찾은상품.title}</h4>
           <p>{찾은상품.content}</p>
           <p>{찾은상품.price}원</p>
-          <button className="btn btn-danger">주문하기</button>
+          <Info 재고={props.재고} 찾은상품={찾은상품} />
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              let array = [...props.재고];
+              array[찾은상품.id]--;
+              props.재고변경(array);
+            }}
+          >
+            주문하기
+          </button>
           <button
             className="btn btn-danger"
             onClick={() => {
@@ -65,5 +76,9 @@ function Detail(props) {
       </div>
     </div>
   );
+}
+function Info(props) {
+  return <p> 재고 : {props.재고[props.찾은상품.id]}</p>;
+  console.log(props.찾은상품.id);
 }
 export default Detail;

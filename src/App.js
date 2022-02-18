@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import {
@@ -15,6 +15,7 @@ import shoesDate from "./data.js";
 import { Link, Route, Switch } from "react-router-dom";
 import Detail from "./Detail.js";
 import axios from "axios";
+let 재고context = React.createContext();
 
 function App() {
   // 중요한 데이터는 꼭 여기다가 넣어야 함(최상위 컴포넌트)
@@ -22,6 +23,7 @@ function App() {
   let [shoes, shoes변경] = useState(shoesDate);
   let [trueFalse, trueFalse변경] = useState(true);
   let [num, num변경] = useState(1);
+  let [재고, 재고변경] = useState([10, 11, 12]);
   console.log(shoes);
   return (
     <div>
@@ -69,7 +71,7 @@ function App() {
       </Navbar>
       <Switch>
         <Route path="/detail/:id">
-          <Detail shoes={shoes} />
+          <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
         </Route>
         <Route path="/:id">
           <div>아이디 연습</div>
@@ -91,12 +93,14 @@ function App() {
             <div className="row">
               {shoes.map((item, i) => {
                 return (
-                  <Card
-                    shoes변경={shoes변경}
-                    shoes={shoes[i]}
-                    i={i}
-                    key={i}
-                  ></Card>
+                  <재고context.Provider value={재고}>
+                    <Card
+                      shoes변경={shoes변경}
+                      shoes={shoes[i]}
+                      i={i}
+                      key={i}
+                    ></Card>
+                  </재고context.Provider>
                 );
               })}
             </div>
@@ -137,6 +141,8 @@ function App() {
   );
 }
 function Card(props) {
+  let 재고 = useContext(재고context);
+  console.log(재고);
   return (
     <div className="col-md-4">
       <img
@@ -148,8 +154,13 @@ function Card(props) {
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.content}</p>
       <p>{props.shoes.price}</p>
+      <Test i={props.i}></Test>
     </div>
   );
+}
+function Test(props) {
+  let 재고 = useContext(재고context);
+  return <div> 재고 : {재고[props.i]} </div>;
 }
 function Loding() {
   return <div>로딩중입니다 ..</div>;
