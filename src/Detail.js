@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "./Detail.scss";
+import { Nav } from "react-bootstrap";
+import { CSSTransition } from "react-transition-group";
 
 let 제목 = styled.div`
   padding: 20px;
@@ -20,6 +22,7 @@ function Detail(props) {
       clearTimeout(특가);
     };
   }, []);
+  let [tab, tab변경] = useState(0);
 
   let history = useHistory();
   let { id } = useParams();
@@ -73,9 +76,46 @@ function Detail(props) {
             뒤로가기
           </button>
         </div>
+        <Nav variant="tabs" defaultActiveKey="link-0">
+          <Nav.Item>
+            <Nav.Link
+              eventKey="link-0"
+              onClick={() => {
+                tab변경(0);
+                alert변경(false);
+              }}
+            >
+              Active
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link
+              eventKey="link-1"
+              onClick={() => {
+                tab변경(1);
+                alert변경(false);
+              }}
+            >
+              Option 2
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
       </div>
+      <CSSTransition in={alert} classNames="tab-style" timeout={500}>
+        <TabsContent tab={tab} alert={alert} alert변경={alert변경} />
+      </CSSTransition>
     </div>
   );
+}
+function TabsContent(props) {
+  useEffect(() => {
+    props.alert변경(true);
+  });
+  if (props.tab === 0) {
+    return <div>0번 탭 입니다.</div>;
+  } else if (props.tab === 1) {
+    return <div>1번 탭 입니다.</div>;
+  }
 }
 function Info(props) {
   return <p> 재고 : {props.재고[props.찾은상품.id]}</p>;

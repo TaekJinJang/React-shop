@@ -15,3 +15,10 @@ $메인칼라: red;
   @include 함수();
   background-color: yellowgreen;
 }
+.tab-style-enter {
+  opacity: 0;
+}
+.tab-style-enter-active {
+  opacity: 1;
+  transition: all 1000ms;
+}
