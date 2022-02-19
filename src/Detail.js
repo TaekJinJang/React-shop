@@ -5,6 +5,7 @@ import styled from "styled-components";
 import "./Detail.scss";
 import { Nav } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
+import { connect } from "react-redux";
 
 let 제목 = styled.div`
   padding: 20px;
@@ -63,6 +64,17 @@ function Detail(props) {
               let array = [...props.재고];
               array[찾은상품.id]--;
               props.재고변경(array);
+              props.dispatch({
+                type: "장바구니추가",
+                payload: {
+                  id: 찾은상품.id,
+                  content: 찾은상품.content,
+                  title: 찾은상품.title,
+                  price: 찾은상품.price,
+                  num: props.재고[찾은상품.id],
+                },
+              });
+              history.push("/cart");
             }}
           >
             주문하기
@@ -122,4 +134,12 @@ function Info(props) {
   return <p> 재고 : {props.재고[props.찾은상품.id]}</p>;
   console.log(props.찾은상품.id);
 }
-export default Detail;
+
+function store(state) {
+  console.log(state);
+  return {
+    state: state.reducer,
+    alertState: state.alertReducer,
+  };
+}
+export default connect(store)(Detail);
