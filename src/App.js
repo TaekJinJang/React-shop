@@ -15,6 +15,8 @@ import shoesDate from "./data.js";
 import { Link, Route, Switch } from "react-router-dom";
 import Detail from "./Detail.js";
 import axios from "axios";
+import Cart from "./Cart.js";
+
 let 재고context = React.createContext();
 
 function App() {
@@ -72,6 +74,9 @@ function App() {
       <Switch>
         <Route path="/detail/:id">
           <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
+        </Route>
+        <Route path={"/cart"}>
+          <Cart></Cart>
         </Route>
         <Route path="/:id">
           <div>아이디 연습</div>

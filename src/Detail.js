@@ -67,6 +67,7 @@ function Detail(props) {
           >
             주문하기
           </button>
+
           <button
             className="btn btn-danger"
             onClick={() => {
