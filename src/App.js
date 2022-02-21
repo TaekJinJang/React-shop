@@ -34,7 +34,9 @@ function App() {
     <div>
       <Navbar bg="light" expand="lg">
         <Container fluid>
-          <Navbar.Brand href="#">Shoes Shop</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">
+            Shoes Shop
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -115,6 +117,7 @@ function App() {
                   </재고context.Provider>
                 );
               })}
+              <button>최근 본 상품</button>
             </div>
             <Button
               variant="secondary"

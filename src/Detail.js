@@ -113,6 +113,17 @@ function Detail(props) {
               Option 2
             </Nav.Link>
           </Nav.Item>
+          <Nav.Item>
+            <Nav.Link
+              eventKey="link-2"
+              onClick={() => {
+                tab변경(2);
+                alert변경(false);
+              }}
+            >
+              Option 3
+            </Nav.Link>
+          </Nav.Item>
         </Nav>
       </div>
       <CSSTransition in={alert} classNames="tab-style" timeout={500}>
@@ -129,6 +140,8 @@ function TabsContent(props) {
     return <div>0번 탭 입니다.</div>;
   } else if (props.tab === 1) {
     return <div>1번 탭 입니다.</div>;
+  } else if (props.tab === 2) {
+    return <div> 최근 본 상품 </div>;
   }
 }
 function Info(props) {
