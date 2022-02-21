@@ -16,6 +16,7 @@ import { Link, Route, Switch } from "react-router-dom";
 import Detail from "./Detail.js";
 import axios from "axios";
 import Cart from "./Cart.js";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 let 재고context = React.createContext();
 
@@ -25,7 +26,7 @@ function App() {
   let [shoes, shoes변경] = useState(shoesDate);
   let [trueFalse, trueFalse변경] = useState(true);
   let [num, num변경] = useState(1);
-  let [재고, 재고변경] = useState([10, 11, 12]);
+  let [재고, 재고변경] = useState([10, 11, 12, 13]);
   console.log(shoes);
   return (
     <div>
@@ -147,9 +148,15 @@ function App() {
 }
 function Card(props) {
   let 재고 = useContext(재고context);
-  console.log(재고);
+  let history = useHistory();
+
   return (
-    <div className="col-md-4">
+    <div
+      className="col-md-4"
+      onClick={() => {
+        history.push(`/detail/${props.shoes.id}`);
+      }}
+    >
       <img
         src={
           "https://codingapple1.github.io/shop/shoes" + (props.i + 1) + ".jpg"

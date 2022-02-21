@@ -12,13 +12,13 @@ let 제목 = styled.div`
   font-size: 25px;
 `;
 function Detail(props) {
-  let [alert, alert변경] = useState(true);
+  let [alert, alert변경] = useState(false);
   let [inputData, inputData변경] = useState("");
   useEffect(() => {
-    let 특가;
+    let 특가 = "";
     setTimeout(() => {
-      특가 = alert변경(false);
-    }, 2000);
+      특가 = props.dispatch({ type: "닫기" });
+    }, 1000);
     return () => {
       clearTimeout(특가);
     };
@@ -33,15 +33,10 @@ function Detail(props) {
   return (
     <div className="container text-center">
       <제목 className="red"> 상세 페이지 </제목>
-      {inputData}
-      <input
-        onChange={(e) => {
-          inputData변경(e.target.value);
-        }}
-      />
-      {alert === true ? (
+
+      {props.alertState === false ? null : (
         <div className="my-alert">재고가 얼마 남지 않았습니다 !!</div>
-      ) : null}
+      )}
       <div className="row">
         <div className="col-md-6">
           <img
@@ -58,6 +53,12 @@ function Detail(props) {
           <p>{찾은상품.content}</p>
           <p>{찾은상품.price}원</p>
           <Info 재고={props.재고} 찾은상품={찾은상품} />
+          사이즈
+          <input
+            onChange={(e) => {
+              inputData변경(e.target.value);
+            }}
+          />
           <button
             className="btn btn-danger"
             onClick={() => {
@@ -72,6 +73,7 @@ function Detail(props) {
                   title: 찾은상품.title,
                   price: 찾은상품.price,
                   num: props.재고[찾은상품.id],
+                  size: inputData,
                 },
               });
               history.push("/cart");
@@ -79,7 +81,6 @@ function Detail(props) {
           >
             주문하기
           </button>
-
           <button
             className="btn btn-danger"
             onClick={() => {

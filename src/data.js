@@ -19,4 +19,10 @@ export default [
     content: "Born in the States",
     price: 130000,
   },
+  {
+    id: 3,
+    title: "멋진 신발",
+    content: "Born in the States",
+    price: 222222,
+  },
 ];

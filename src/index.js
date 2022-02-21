@@ -22,6 +22,7 @@ let defaultState = [
     content: "Born in Seoul",
     price: 110000,
     num: 11,
+    size: 250,
   },
 
   {
@@ -52,12 +53,21 @@ function reducer(state = defaultState, action) {
     return copy;
   } else if (action.type === "plus") {
     let copy = [...state];
-    copy[0].num++;
+    copy[action.num].num++;
     return copy;
   } else if (action.type === "minus") {
     let copy2 = [...state];
-    copy2[0].num--;
+    copy2[action.num].num--;
     return copy2;
+  } else if (action.type === "delete") {
+    let copy = [...state];
+    let 중복 = copy.findIndex((item, i) => {
+      return item.id == action.num;
+    });
+    console.log(action.num);
+    중복 == 0 ? copy.shift() : copy.splice(중복, 1);
+
+    return copy;
   } else {
     return state;
   }
