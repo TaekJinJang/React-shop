@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, lazy, Suspense } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import {
@@ -13,9 +13,11 @@ import {
 } from "react-bootstrap";
 import shoesDate from "./data.js";
 import { Link, Route, Switch } from "react-router-dom";
-import Detail from "./Detail.js";
+// import Detail from "./Detail.js";
+let Detail = lazy(() => import("./Detail.js"));
+// import Cart from "./Cart.js";
+let Cart = lazy(() => import("./Cart.js"));
 import axios from "axios";
-import Cart from "./Cart.js";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 let 재고context = React.createContext();
@@ -74,10 +76,14 @@ function App() {
       </Navbar>
       <Switch>
         <Route path="/detail/:id">
-          <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
+          <Suspense fallback={<div> 로딩중입니다...</div>}>
+            <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
+          </Suspense>
         </Route>
         <Route path={"/cart"}>
-          <Cart></Cart>
+          <Suspense fallback={<div> 로딩중입니다...</div>}>
+            <Cart></Cart>
+          </Suspense>
         </Route>
         <Route path="/:id">
           <div>아이디 연습</div>
